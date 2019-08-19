@@ -5,13 +5,13 @@ $(eval $(call c_recipe,$(SLED_MK_DIR)/%,$(SLED_MODS_H) $(SLED_MK_DIR)/sled.mk,,\
 -Wno-undef -Wno-shadow -Wno-redundant-decls))
 
 # dummy rule
-$(SLED_MK_DIR)/modules/../sled/src/modules/%.c:
+#$(SLED_MK_DIR)/modules/../sled/src/modules/%.c:
 
 # create modules folder
 $(SLED_MK_DIR)/modules:
 	@mkdir $(if $(Q),,-v) -p $(@)
 
-# create basic glue files (module list, etc)
+# Creating glue files
 $(SLED_MODS_H) $(SLED_MODS_C) $(SLED_MODS_H_PATHS): $(SLED_MK_DIR)/modules $(SLED_MODS_ORIG) # $(SLED_MODS_LOCAL)
 	@echo "  CREATING $(subst $(LOCM3EX_DIR)/,,$(realpath $(@)))";
 	@# h;
@@ -31,6 +31,7 @@ $(SLED_MODS_H) $(SLED_MODS_C) $(SLED_MODS_H_PATHS): $(SLED_MK_DIR)/modules $(SLE
 	$(file >>$(SLED_MODS_C),	};)
 	$(file >>$(SLED_MODS_C),)
 
+# create basic glue files (module list, etc)
 define SLED_MODULE_BODY =
 static int init_(uint32_t modno_) {
 	return init(modno_, NULL);
@@ -45,7 +46,7 @@ static void deinit_(uint32_t modno_) {
 	deinit(modno_);
 }
 endef
-$(SLED_MK_DIR)/modules/%.c : $(SLED_MK_DIR)/sled/src/modules/%.c $(SLED_MK_DIR)/modules $(SLED_MODS_H)
+$(SLED_MK_DIR)/modules/%.c : $(SLED_MK_DIR)/sled/src/modules/%.c $(SLED_MK_DIR)/modules $(SLED_MODS_H) $(SLED_MODS_C)
 	@echo "  CREATING $@ << $<";
 	$(file  >$@,#include <sled_gfx_private.h>)
 	$(file >>$@,#include "../sled/src/modules/$(*).c")

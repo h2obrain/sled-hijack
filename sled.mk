@@ -32,11 +32,11 @@ SLED_MODS_H_PATHS+=../lib/sled_hijack/modules/../modules/sled_modules.h
 #.DUMMY: $(SLED_MODS_H) $(SLED_MODS_C)
 #SAVE_LIST = $(if $(1),$(file >>$(1), $(wordlist 1,4,$(2)))  $(call SAVE_LIST,$(wordlist 5,$(words $1),$1)))
 
-
 # Build system integration
 #DEPS += $(SLED_MODS_H) # created exclusive rule for sled
 SRCS += $(SLED_MODS_C) $(SLED_MODS_LOCAL) $(addprefix $(SLED_MK_DIR)/sled/src/,$(SLED_SRCS))
 FILES_TO_CLEAN += $(SLED_MODS_H) $(SLED_MODS_C) $(SLED_MODS_LOCAL)
+.SECONDARY: $(SLED_MODS_LOCAL)
 
 #$(foreach SRC,$(sort $(SLED_MODS_H)),$(info $(SRC)))
 #$(foreach SRC,$(sort $(SLED_MODS_C)),$(info $(SRC)))
