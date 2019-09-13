@@ -8,6 +8,9 @@ SOURCES_DIRS = src
 
 SLED_SRCS = mathey.c random.c color.c graphics.c modules/text.c
 
+ifdef SLED_MODS
+SLED_MODS_ORIG  = $(filter $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(SLED_MODS)),$(wildcard $(SLED_MK_DIR)/sled/src/modules/gfx_*c))
+else
 # do not compile
 IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gfx_ursuppe2.c gfx_sort1D_algos.c
 # crash with -O3
@@ -15,6 +18,8 @@ IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gf
  
 IGNORED_SLED_MODULES := $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(IGNORED_SLED_MODULES))
 SLED_MODS_ORIG  = $(filter-out $(IGNORED_SLED_MODULES),$(wildcard $(SLED_MK_DIR)/sled/src/modules/gfx_*c))
+endif
+
 SLED_MODS_FILES = $(subst $(SLED_MK_DIR)/sled/src/modules/,,$(SLED_MODS_ORIG))
 SLED_MODS_NAMES = $(subst .c,,$(SLED_MODS_FILES))
 SLED_MODS_LOCAL = $(addprefix $(SLED_MK_DIR)/modules/,$(SLED_MODS_FILES))
