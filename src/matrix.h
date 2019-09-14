@@ -1,7 +1,6 @@
 // Helper definitions that will allow one to manipulate the matrix.
 
-#ifndef __INCLUDED_MATRIX__
-#define __INCLUDED_MATRIX__
+#pragma once
 
 #include "types.h"
 
@@ -38,6 +37,3 @@ int matrix_pick_next(oscore_time delay_us);
 
 int sledhj_init(void);
 int sledhj_loop(void);
-
-#endif
-
