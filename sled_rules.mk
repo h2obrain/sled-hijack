@@ -72,7 +72,8 @@ static void deinit_(uint32_t modno_) {
 }
 endef
 $(SLED_MK_DIR)/modules/%.c : $(SLED_MK_DIR)/sled/src/modules/%.c $(SLED_MODS_H) $(SLED_MODS_C) | $(SLED_MK_DIR)/modules
-	@echo "  CREATING $@ << $<";
+	@echo "  CREATING $@";
+	@echo "      FROM $<";
 	$(file  >$@,#include <sled_gfx_private.h>)
 	$(file >>$@,#include "../sled/src/modules/$(*).c")
 	$(file >>$@,$(SLED_MODULE_BODY))
