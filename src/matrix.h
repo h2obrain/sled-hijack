@@ -32,8 +32,8 @@ int matrix_render(void);
 int matrix_deinit(void);
 
 int matrix_get_current_mod(void);
-void matrix_next_animation(void);
-int matrix_pick_next(oscore_time delay_us);
+//void matrix_next_animation(void);
+//int matrix_pick_next(void); //oscore_time delay_us);
 
 int sledhj_init(void);
 int sledhj_loop(void);

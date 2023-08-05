@@ -149,80 +149,60 @@ int matrix_deinit(void) {
 
 
 static int current_mod = -1;
-static int next_mod=-1;
 
 __attribute__((weak))
 int matrix_get_current_mod(void) {
 	return current_mod;
 }
 
-__attribute__((weak))
-void matrix_next_animation() {
+//__attribute__((weak))
+void matrix_pick_next(void) { //oscore_time delay_us) {
+	int next_mod = -1;
 	if (current_mod>=0) {
-		next_mod = (current_mod+1) % SLED_MODULE_COUNT;
+		sled_modules[current_mod]->deinit(current_mod);
 	} else {
-		next_mod = 0;
+		current_mod = -1;
 	}
-}
 
-__attribute__((weak))
-int matrix_pick_next(oscore_time delay_us) {
-	int next_mod = rand()%SLED_MODULE_COUNT;
-//	if (current_mod!=next_mod) {
-		if (current_mod>=0) sled_modules[current_mod]->deinit(current_mod);
-		if (delay_us==ULONG_MAX) return 0;
-		current_mod = next_mod;
-		sled_modules[current_mod]->init(current_mod);
-		sled_modules[current_mod]->reset(current_mod);
-//	}
-	if (!delay_us) delay_us = 1;
-	return timer_add(delay_us, current_mod, 0, NULL);
+	current_mod = (current_mod+1) % SLED_MODULE_COUNT;
+//	current_mod = rand() % SLED_MODULE_COUNT;
+
+	sled_modules[current_mod]->init(current_mod);
+	sled_modules[current_mod]->reset(current_mod);
 }
 
 __attribute__((weak))
 int sledhj_init(void) {
-	timers_init(0);
 	matrix_init(0);
-	//	for (uint32_t i=0; i<SLED_MODULE_COUNT; i++) {
-	//		sled_modules[i]->init(i);
-	//	}
-	matrix_pick_next(0);
+//	for (uint32_t i=0; i<SLED_MODULE_COUNT; i++) {
+//		sled_modules[i]->init(i);
+//	}
 	return 0;
 }
 __attribute__((weak))
 int sledhj_loop(void) {
-	if (next_mod!=-1) {
-		timer_add(0,-1,0,NULL); timer_get(); /* clear timers */
-		current_mod = next_mod; next_mod = -1;
-		timer_add(oscore_udate()+10000000, current_mod, 0, NULL);
+	if (current_mod < 0) {
+		matrix_pick_next();
 	}
-	timer tnext = timer_get();
-	if (tnext.moduleno == -1) {
-		// Queue random.
-		matrix_pick_next(oscore_udate()+10000000);
-	} else
-	if (tnext.time > oscore_udate()) {
-		// do nothing
-		//if (tnext.time == 0) tnext.time = 1;
-		timer_add(tnext.time, tnext.moduleno, 0,NULL);
-	} else {
-		// render or so
-		int r = sled_modules[tnext.moduleno]->draw(tnext.moduleno);
-		switch (r) {
-			case 0:
-				break;
-			case 1:
-				matrix_pick_next(oscore_udate()+1000000);
-				break;
-			default :
-				// error deinit and reinit
-				for (uint32_t i=0; i<SLED_MODULE_COUNT; i++) {
-					sled_modules[i]->deinit(i);
-				}
-				sledhj_init();
-				//while (1);
-				break;
-		}
+	if (current_mod < 0) {
+		return -1;
+	}
+
+	// render or so
+	int r = sled_modules[current_mod]->draw(current_mod);
+	switch (r) {
+		case 0:
+			break;
+		case 1:
+			current_mod = -1;
+			break;
+		default :
+			// error deinit and reinit
+			for (uint32_t i=0; i<SLED_MODULE_COUNT; i++) {
+				sled_modules[i]->deinit(i);
+			}
+			sledhj_init();
+			break;
 	}
 	return 0;
 }

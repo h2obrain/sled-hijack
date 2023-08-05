@@ -43,7 +43,7 @@ oscore_time udate(void) {
 }
 #include <support/clock.h>
 oscore_time oscore_udate(void) {
-	return mtime()*1000;
+	return mtime() * 1000;
 }
 
 //oscore_time udcate(void) {
@@ -85,8 +85,7 @@ int timer_add(oscore_time usec,int moduleno, int argc, char* argv[]) {
 //		oscore_mutex_unlock(tlock);
 		return 1;
 	}
-	TIMERS[timer_count] = t;
-	timer_count++;
+	TIMERS[timer_count++] = t;
 //	oscore_mutex_unlock(tlock);
 	return 0;
 }
