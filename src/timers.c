@@ -34,12 +34,13 @@ int timers_quitting = 0;
 //static oscore_mutex tlock;
 //
 //static oscore_event breakpipe;
-//
-//// udate has been replaced by oscore.
-//// No, this is not pretty.
-//oscore_time udate(void) {
-//	return oscore_udate();
-//}
+
+
+// udate has been replaced by oscore.
+// No, this is not pretty.
+oscore_time udate(void) {
+	return oscore_udate();
+}
 #include <support/clock.h>
 oscore_time oscore_udate(void) {
 	return mtime()*1000;
