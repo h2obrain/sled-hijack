@@ -11,6 +11,7 @@
 
 
 /* matrix stuff */
+#ifndef BUILD_SLED_LIB
 #include <gfx/gfx/gfx_argb8888.h>
 static inline
 gfx_color_t RGB_to_argb8888(RGB col) {
@@ -20,6 +21,7 @@ static inline
 RGB RGB_from_argb8888(gfx_color_t c) {
 	return (RGB){ .alpha=c.argb8888.a, .red=c.argb8888.r, .green=c.argb8888.g, .blue=c.argb8888.b };
 }
+#endif
 
 int matrix_init(int outmodno);
 int matrix_getx(void);
