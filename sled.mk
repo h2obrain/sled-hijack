@@ -12,10 +12,12 @@ ifdef SLED_MODS
 SLED_MODS_ORIG  = $(filter $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(SLED_MODS)),$(wildcard $(SLED_MK_DIR)/sled/src/modules/gfx_*c))
 else
 # do not compile
-IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_ip.c gfx_ursuppe2.c gfx_sort1D_algos.c gfx_testmatrix.c gfx_sinematrix.c
+IGNORED_SLED_MODULES += gfx_autoterminal.c gfx_ip.c
+IGNORED_SLED_MODULES += gfx_ursuppe2.c  # different deinit type
+#IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_sort1D_algos.c gfx_testmatrix.c gfx_sinematrix.c
 #IGNORED_SLED_MODULES += gfx_autoterminal.c gfx_candyswarm.c gfx_ip.c gfx_ursuppe2.c gfx_sort1D_algos.c gfx_testmatrix.c
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gfx_sort1D_algos.c 
-# crash with -O3
+# crash with -O3 (still?)
 #IGNORED_SLED_MODULES += gfx_clock.c gfx_error.c gfx_ip.c gfx_text.c
  
 IGNORED_SLED_MODULES := $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(IGNORED_SLED_MODULES))
