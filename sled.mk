@@ -11,7 +11,8 @@ SLED_MODS_ORIG  = $(filter $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(SLED_M
 else
 # do not compile
 IGNORED_SLED_MODULES += gfx_autoterminal.c gfx_ip.c
-IGNORED_SLED_MODULES += gfx_ursuppe2.c  # different deinit type
+IGNORED_SLED_MODULES += gfx_ursuppe2.c gfx_candyswarm.c # different deinit header
+IGNORED_SLED_MODULES += gfx_sort1D_algos.c # hmm, no init
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_sort1D_algos.c gfx_testmatrix.c gfx_sinematrix.c
 #IGNORED_SLED_MODULES += gfx_autoterminal.c gfx_candyswarm.c gfx_ip.c gfx_ursuppe2.c gfx_sort1D_algos.c gfx_testmatrix.c
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gfx_sort1D_algos.c 
