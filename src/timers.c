@@ -41,10 +41,18 @@ int timers_quitting = 0;
 oscore_time udate(void) {
 	return oscore_udate();
 }
+#ifdef LOCM3EX
 #include <support/clock.h>
 oscore_time oscore_udate(void) {
 	return mtime() * 1000;
 }
+#else
+__attribute__((weak))
+oscore_time oscore_udate(void) {
+	static uint64_t t = 0;
+	return t += 1000;
+}
+#endif
 
 //oscore_time udcate(void) {
 //	return udate();

@@ -4,8 +4,6 @@ SLED_MK_DIR :=$(MKF_DIR)
 INCLUDE_DIRS = include sled/src
 SOURCES_DIRS = src
 
-#SRCS += $(SLED_MK_DIR)/sled/src/timers.c
-
 SLED_SRCS = mathey.c random.c color.c graphics.c modules/text.c
 
 ifdef SLED_MODS
@@ -17,7 +15,7 @@ IGNORED_SLED_MODULES += gfx_ursuppe2.c  # different deinit type
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_sort1D_algos.c gfx_testmatrix.c gfx_sinematrix.c
 #IGNORED_SLED_MODULES += gfx_autoterminal.c gfx_candyswarm.c gfx_ip.c gfx_ursuppe2.c gfx_sort1D_algos.c gfx_testmatrix.c
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gfx_sort1D_algos.c 
-# crash with -O3 (still?)
+# crash with -O3 (stimodules/ll?)
 #IGNORED_SLED_MODULES += gfx_clock.c gfx_error.c gfx_ip.c gfx_text.c
  
 IGNORED_SLED_MODULES := $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(IGNORED_SLED_MODULES))
@@ -29,7 +27,7 @@ SLED_MODS_NAMES = $(subst .c,,$(SLED_MODS_FILES))
 SLED_MODS_LOCAL = $(addprefix $(SLED_MK_DIR)/modules/,$(SLED_MODS_FILES))
 
 #$(foreach SRC,$(sort $(SLED_MODS_LOCAL)),$(info $(SRC)))
-#$(error lol)
+#$(error okay)
 
 #$(error SLED_DIR:$(SLED_MK_DIR))
 SLED_MODS_C =$(SLED_MK_DIR)/modules/sled_modules.c
@@ -47,8 +45,8 @@ SRCS += $(SLED_MODS_C) $(SLED_MODS_LOCAL) $(addprefix $(SLED_MK_DIR)/sled/src/,$
 FILES_TO_CLEAN += $(SLED_MODS_H) $(SLED_MODS_C) $(SLED_MODS_LOCAL)
 .SECONDARY: $(SLED_MODS_LOCAL)
 
-#$(foreach SRC,$(sort $(SLED_MODS_H)),$(info $(SRC)))
-#$(foreach SRC,$(sort $(SLED_MODS_C)),$(info $(SRC)))
-#$(foreach SRC,$(sort $(SLED_MODS_LOCAL)),$(info $(SRC)))
-#$(error lol)
+# $(foreach SRC,$(sort $(SLED_MODS_H)),$(info $(SRC)))
+# $(foreach SRC,$(sort $(SLED_MODS_C)),$(info $(SRC)))
+# $(foreach SRC,$(sort $(SLED_MODS_LOCAL)),$(info $(SRC)))
+# $(error okay)
 

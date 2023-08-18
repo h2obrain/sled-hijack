@@ -4,6 +4,11 @@ COMMA:=,
 
 include ./sled.mk
 include ./sled_rules.mk
+SRCS += $(wildcard $(SLED_MK_DIR)/src/*.c)
+
+# $(foreach SRC,$(sort $(SRCS)),$(info $(SRC)))
+# $(error okay)
+
 
 default: all
 
