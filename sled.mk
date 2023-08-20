@@ -18,7 +18,7 @@ IGNORED_SLED_MODULES += gfx_sort1D_algos.c # hmm, no init
 #IGNORED_SLED_MODULES += gfx_candyswarm.c gfx_golc.c gfx_ip.c gfx_testmatrix.c gfx_sort1D_algos.c 
 # crash with -O3 (stimodules/ll?)
 #IGNORED_SLED_MODULES += gfx_clock.c gfx_error.c gfx_ip.c gfx_text.c
- 
+
 IGNORED_SLED_MODULES := $(addprefix $(SLED_MK_DIR)/sled/src/modules/,$(IGNORED_SLED_MODULES))
 SLED_MODS_ORIG  = $(filter-out $(IGNORED_SLED_MODULES),$(wildcard $(SLED_MK_DIR)/sled/src/modules/gfx_*c))
 endif
@@ -33,8 +33,8 @@ SLED_MODS_LOCAL = $(addprefix $(SLED_MK_DIR)/modules/,$(SLED_MODS_FILES))
 #$(error SLED_DIR:$(SLED_MK_DIR))
 SLED_MODS_C =$(SLED_MK_DIR)/modules/sled_modules.c
 SLED_MODS_H =$(SLED_MK_DIR)/modules/sled_modules.h
-SLED_MODS_H_PATHS =../lib/sled_hijack/include/../modules/sled_modules.h
-SLED_MODS_H_PATHS+=../lib/sled_hijack/modules/../modules/sled_modules.h
+# SLED_MODS_H_PATHS =../lib/sled_hijack/include/../modules/sled_modules.h
+# SLED_MODS_H_PATHS+=../lib/sled_hijack/modules/../modules/sled_modules.h
 
 #$(SLED_MODS_LOCAL)
 #.DUMMY: $(SLED_MODS_H) $(SLED_MODS_C)

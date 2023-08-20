@@ -11,7 +11,7 @@
 
 
 /* matrix stuff */
-#ifndef BUILD_SLED_LIB
+#ifdef LOCM3EX
 #include <gfx/gfx/gfx_argb8888.h>
 static inline
 gfx_color_t RGB_to_argb8888(RGB col) {
