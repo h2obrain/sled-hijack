@@ -4,6 +4,7 @@ COMMA:=,
 
 # Modules causing problems with rust linkung.. (probably size or so, TODO find similarities :))
 IGNORED_SLED_MODULES += gfx_cube.c gfx_golc.c gfx_maze.c
+IGNORED_SLED_MODULES += gfx_candyflow.c gfx_disturbedcandy.c gfx_error.c # crashes at -O0 only
 
 
 include ./sled.mk
@@ -22,11 +23,12 @@ lib: lib/libsled.a
 
 #CC =~/.rustup/toolchains/esp/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin/riscv32-esp-elf-gcc
 CC =$(lastword $(sort $(wildcard ../.embuild/espressif/tools/riscv32-esp-elf/esp-*/riscv32-esp-elf/bin/riscv32-esp-elf-gcc)))
-# ARCH ?=rv32imc
+ARCH ?=rv32imc
 # ARCH ?=rv32imac_zicsr_zifencei
 # ARCH ?=rv32i2p1_m2p0_a2p1_c2p0_zicsr2p0_zifencei2p0
 # CFLAGS =-Iinclude -Isled/src -DBUILD_SLED_LIB -march=$(ARCH) -O3
-CFLAGS =-Iinclude -Isled/src -DBUILD_SLED_LIB -O3 -march=rv32imc -ffunction-sections -fdata-sections -mabi=ilp32 -mcmodel=medany --specs=nosys.specs
+OPT=3 # optimization 0-3
+CFLAGS =-Iinclude -Isled/src -O$(OPT) -march=$(ARCH) -mabi=ilp32 #-ffunction-sections -fdata-sections-mcmodel=medany --specs=nosys.specs
 
 OBJ=$(addprefix obj/, $(SRCS:.c=.o))
 
