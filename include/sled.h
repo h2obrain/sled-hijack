@@ -13,3 +13,5 @@ typedef struct {
 #include "../modules/sled_modules.h"
 #include "../src/matrix.h"
 #include "../sled/src/timers.h"
+
+extern module_t dummy_module;

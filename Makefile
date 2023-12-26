@@ -2,10 +2,12 @@ MKF_DIR:=.
 SPACE:= 
 COMMA:=,
 
+# First target is the default
+default: all
+
 # Modules causing problems with rust linkung.. (probably size or so, TODO find similarities :))
 IGNORED_SLED_MODULES += gfx_cube.c gfx_golc.c gfx_maze.c
 IGNORED_SLED_MODULES += gfx_candyflow.c gfx_disturbedcandy.c gfx_error.c # crashes at -O0 only
-
 
 include ./sled.mk
 include ./sled_rules.mk
@@ -16,7 +18,7 @@ SRCS += $(wildcard $(SLED_MK_DIR)/src/*.c)
 
 .SUFFIXES: # Delete the default suffixes
 .SECONDARY:
-.PHONY: all
+.PHONY: all default
 
 all: lib
 lib: lib/libsled.a
@@ -27,12 +29,12 @@ ARCH ?=rv32imc
 # ARCH ?=rv32imac_zicsr_zifencei
 # ARCH ?=rv32i2p1_m2p0_a2p1_c2p0_zicsr2p0_zifencei2p0
 # CFLAGS =-Iinclude -Isled/src -DBUILD_SLED_LIB -march=$(ARCH) -O3
-OPT=3 # optimization 0-3
-CFLAGS =-Iinclude -Isled/src -O$(OPT) -march=$(ARCH) -mabi=ilp32 #-ffunction-sections -fdata-sections-mcmodel=medany --specs=nosys.specs
+OPT=0 #3 # optimization 0-3
+CFLAGS =-Iinclude -Isled/src -O$(OPT) -ggdb3 -march=$(ARCH) -mabi=ilp32 -ffunction-sections --specs=nosys.specs # -fdata-sections-mcmodel=medany
 
 OBJ=$(addprefix obj/, $(SRCS:.c=.o))
 
-obj/%.o: %.c
+obj/%.o: %.c Makefile
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

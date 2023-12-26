@@ -31,6 +31,18 @@
 #include <limits.h>
 
 #include "../sled/src/taskpool.h"
+
+int hoi(uint32_t d) {
+	int mx = matrix_getx();
+	int my = 0; //matrix_gety();
+	printf("okay (%d) %d/%d\n", d, mx, my);
+	return 170;
+}
+module_t dummy_module = {
+	.name = "Dummy",
+	.init = hoi,
+};
+
 /* dummy mutex */
 oscore_mutex oscore_mutex_new(void) {
 	return NULL;

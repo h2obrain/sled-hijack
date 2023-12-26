@@ -62,16 +62,21 @@ $(SLED_MODS_C): $(SLED_MODS_ORIG) | $(SLED_MODS_H) $(SLED_MK_DIR)/modules $(SLED
 
 # create basic glue files (module list, etc)
 define SLED_MODULE_BODY =
+#include <stdio.h>
 static int init_(uint32_t modno_) {
+	printf("init(%d)", modno_);
 	return init(modno_, NULL);
 }
 static void reset_(uint32_t modno_) {
+	printf("init(%d)", modno_);
 	reset(modno_);
 }
 static int draw_(uint32_t modno_) {
+	printf("draw(%d)", modno_);
 	return draw(modno_, 0, NULL);
 }
 static void deinit_(uint32_t modno_) {
+	printf("deinit(%d)", modno_);
 	deinit(modno_);
 }
 endef
